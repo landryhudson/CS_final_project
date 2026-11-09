@@ -1,5 +1,6 @@
 import math
 import matplotlib.pyplot as plt
+import tkinter as tk
 
 # Constants
 gravity = 9.8
