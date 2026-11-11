@@ -1,6 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 import tkinter as tk
+from tkinter import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
