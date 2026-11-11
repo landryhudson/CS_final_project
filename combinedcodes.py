@@ -9,7 +9,7 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
         widget.destroy()
     # Constants
     gravity = 9.8
-    del_t = 0.1
+    del_t = 0.01
     time = 0
 
     #yinitial = 10.0
