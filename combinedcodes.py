@@ -77,7 +77,7 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
     return max_height, finalrange, velocityfinal, timefinal
 
 root = Tk()
-root.title("inputs")
+root.title("Projectile Motion")
 width= root.winfo_screenwidth() 
 height= root.winfo_screenheight()
 root.geometry("%dx%d" % (width, height))
