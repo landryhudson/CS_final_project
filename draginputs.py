@@ -1,5 +1,6 @@
-from tkinter import *
-import graph
+from tkinter import * 
+from tkinter import ttk
+import draggraph
 
 #setting root and making it full screen
 root = Tk()
@@ -13,10 +14,10 @@ def play():
     initialangle = float(initial_angle.get())
     yinitial = float(initial_height.get())
     dragcoeff = float(drag_coeff.get())
-    area = float(area.get())
-    density = float(density.get())
+    area = float(obj_area.get())
+    density = float(fluid_density.get())
 
-    max_height, finalrange, velocityfinal, timefinal = graph.draw_graph(graphframe, initialvelocity, initialangle, yinitial, drag coeff, area, density)
+    max_height, finalrange, velocityfinal, timefinal = draggraph.draw_graph(graphframe, initialvelocity, initialangle, yinitial, dragcoeff, area, density)
     
     # Update the output labels next to the inputs
     maxheight_value.config(text=f"{max_height:.2f} m")
@@ -49,16 +50,17 @@ drag_coeff = Entry(root)
 drag_coeff.grid(row = 4, column = 1)
 drag_coeff.insert(0, "0")
 
-area = Entry(root)
-area.grid(row = 5, column = 1)
-area.insert(0, "0")
+obj_area = Entry(root)
+obj_area.grid(row = 5, column = 1)
+obj_area.insert(0, "10")
 
-density = Entry(root)
-density.grid(row = 6, column = 1)
-density.insert(0, "0")
+den = [1.225, 1000, 0]
+fluid_density = ttk.Combobox(root, values=den)
+fluid_density.set("Select a fluid denisty")
+fluid_density.grid(row = 6, column = 1)
 
 play_button = Button(root, text = "▶", command = play)
-play_button.grid(row = 4, column = 0, columnspan=2)
+play_button.grid(row = 7, column = 0, columnspan=2)
 
 #outputs
 v_final_label = Label(root, text="Final Velocity (m/s):").grid(row = 1, column=2)
