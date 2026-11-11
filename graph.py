@@ -47,7 +47,7 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
         t_values.append(time)
         
     max_height = max(y_values)
-    range = max(x_values)
+    finalrange = max(x_values)
     velocityfinal = v_values[-1]
     timefinal = max(t_values)
 
@@ -73,4 +73,4 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
     plt.close(fig)
 
     # Return values back to inputs.py
-    return max_height, range, velocityfinal, timefinal
+    return max_height, finalrange, velocityfinal, timefinal
