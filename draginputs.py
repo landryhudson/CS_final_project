@@ -1,6 +1,6 @@
 from tkinter import * 
 from tkinter import ttk
-import draggraph
+import withdraggraph
 
 #setting root and making it full screen
 root = Tk()
@@ -17,7 +17,7 @@ def play():
     area = float(obj_area.get())
     density = float(fluid_density.get())
 
-    max_height, finalrange, velocityfinal, timefinal = draggraph.draw_graph(graphframe, initialvelocity, initialangle, yinitial, dragcoeff, area, density)
+    max_height, finalrange, velocityfinal, timefinal = withdraggraph.draw_graph(graphframe, initialvelocity, initialangle, yinitial, dragcoeff, area, density)
     
     # Update the output labels next to the inputs
     maxheight_value.config(text=f"{max_height:.2f} m")
