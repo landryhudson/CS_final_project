@@ -3,13 +3,15 @@
 from tkinter import *
 import graph
 
-#setting root and making it full screen
+#this sets the root and makes it so that the program is a full screen application. It depends on the full sceen dimensions of the computer system
 root = Tk()
 root.title("inputs")
 width= root.winfo_screenwidth() 
 height= root.winfo_screenheight()
 root.geometry("%dx%d" % (width, height))
 
+#sets the play button to give the values from input to the graphing function so that a graph is produced. 
+# Then takes the final vlaues such as range, max height, time and velocity and puts them into the GUI 
 def play():
     initialvelocity = float(initial_v.get())
     initialangle = float(initial_angle.get())
@@ -23,12 +25,12 @@ def play():
     velocityfinal_value.config(text=f"{velocityfinal:.2f} m/s")
     timefinal_value.config(text=f"{timefinal:.2f} s")
 
-#labels
+#labels for inputs (GUI)
 v_label = Label(root, text="Initial Velocity (m/s):").grid(row = 1)
 angle_label = Label(root, text = "Initial Angle (degrees):").grid(row=2)
 height_label = Label(root, text = "Initial Height (m):").grid(row=3)
 
-#inputs
+#GUI user inputs using Tkinter
 initial_v = Entry(root)
 initial_v.grid(row = 1, column = 1)
 initial_v.insert(0,"5")
@@ -44,12 +46,13 @@ initial_height.insert(0, "0")
 play_button = Button(root, text = "▶", command = play)
 play_button.grid(row = 4, column = 0, columnspan=2)
 
-#outputs
+#labels for outputsusing Tkinter
 v_final_label = Label(root, text="Final Velocity (m/s):").grid(row = 1, column=2)
 time_label = Label(root, text = "Time (seconds):").grid(row=2, column=2)
 finalrange_label = Label(root, text = "Range (m):").grid(row=3, column=2)
 maxheight_label = Label(root, text = "Max Height (m):").grid(row=4, column=2)
 
+#Sets a default value of "--" for outputs. When "play" is pressed these values will update
 velocityfinal_value = Label(root, text="-- m/s")
 velocityfinal_value.grid(row=1, column=3)
 
@@ -65,7 +68,7 @@ maxheight_value.grid(row=4, column=3)
 root.columnconfigure(4, weight=1)
 
 
-#frame for graph to go into
+#frame for graph to go into using Tkinter. I set the default color as light blue but it can be changed 
 total_cols = root.grid_size()[0]
 total_rows = root.grid_size()[1]
 graphframe = Frame(root, background="LightBlue2", borderwidth=4, height = height - 300, pady = 3)
