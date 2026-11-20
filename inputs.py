@@ -3,7 +3,8 @@
 from tkinter import *
 import graph
 
-#this sets the root and makes it so that the program is a full screen application. It depends on the full sceen dimensions of the computer system
+#this sets the root and makes it so that the program is a full screen application. 
+# It depends on the full sceen dimensions of the computer system
 root = Tk()
 root.title("inputs")
 width= root.winfo_screenwidth() 
