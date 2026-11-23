@@ -18,7 +18,17 @@ def play():
     initialangle = float(initial_angle.get())
     yinitial = float(initial_height.get())
 
-    max_height, finalrange, velocityfinal, timefinal = graph.draw_graph(graphframe, initialvelocity, initialangle, yinitial)
+    #will check if air resistance is enabled; if not, set density to 0.0, mass to 1 kg, and diameter to 0.1
+    if check_var.get():
+        air_density = float(selected_option.get())
+        mass = float(mass_entry.get())
+        diameter = float(diameter_entry.get())
+    else:
+        air_density = 0.0
+        mass = 1.0
+        diameter = 0.1
+
+    max_height, finalrange, velocityfinal, timefinal = graph.draw_graph(graphframe, initialvelocity, initialangle, yinitial, air_density, mass, diameter)
     
     # Update the output labels next to the inputs. 
     # Takes values from graph.py and outputs them to 2 decimal places. (once play button is pressed)
@@ -75,8 +85,45 @@ maxheight_value.grid(row=4, column=3)
 
 root.columnconfigure(4, weight=1)
 
+def toggle_menu():
+    if check_var.get():
+        # Show the entire drag_frame spanning rows 2 to 4
+        drag_frame.grid(row=2, column=4, rowspan=3, padx=10, pady=5)
+    else:
+        # Hide the entire container at once
+        drag_frame.grid_remove()
 
-#frame for graph to go into using Tkinter. I set the default color as light blue but it can be changed 
+#Track the checkbox state
+check_var = BooleanVar(value=False)
+
+#Place the checkbox in Row 1, Column 4
+checkbox = Checkbutton(root, text="Enable Air Resistance", variable=check_var, command=toggle_menu)
+checkbox.grid(row=1, column=4, pady=5)
+
+#Create the hidden sub-menu container (kept off the main grid initially)
+drag_frame = LabelFrame(root, text="Drag Parameters", padx=10, pady=5)
+
+#Fluid Density Dropdown inside drag_frame
+Label(drag_frame, text="Fluid Density (kg/m³):").grid(row=0, column=0, sticky="w")
+options = [1.225, 1000, 0]
+selected_option = StringVar(value=options[0])
+dropdown = OptionMenu(drag_frame, selected_option, *options)
+dropdown.grid(row=0, column=1, sticky="ew")
+
+#Mass Input inside drag_frame
+Label(drag_frame, text="Mass (kg):").grid(row=1, column=0, sticky="w")
+mass_entry = Entry(drag_frame, width=10)
+mass_entry.grid(row=1, column=1)
+mass_entry.insert(0, "1.0")
+
+#Diameter Input inside drag_frame
+Label(drag_frame, text="Diameter (m):").grid(row=2, column=0, sticky="w")
+diameter_entry = Entry(drag_frame, width=10)
+diameter_entry.grid(row=2, column=1)
+diameter_entry.insert(0, "0.1")
+
+
+#frame for graph to go into using Tkinter.
 #I want the frame to span all the columns if I add any so I made a variable that gets the toatl number of columns and rows. 
 total_cols = root.grid_size()[0]
 total_rows = root.grid_size()[1]

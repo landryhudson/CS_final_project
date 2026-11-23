@@ -6,27 +6,28 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.animation import FuncAnimation
 ani = None  # Keeps the animation from getting deleted by Python
 
-def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
+def draw_graph(graphframe, initialvelocity, initialangle, yinitial, air_density, mass, diameter):
     global ani
     if ani is not None and ani.event_source is not None:
         ani.event_source.stop()
     for widget in graphframe.winfo_children():
             widget.destroy()
-   
+
+    area = (math.pi)*((diameter/2)**2)
     # Establish Constants
+    dragcoeff = 0.47
     gravity = 9.8
     del_t = 0.02
     time = 0
 
-    #yinitial = 10.0
-    #initialvelocity = 10.0
-    #initialangle = 50
-
     # Initial conditions
+    acceleration = [0, gravity]
     positionx = 0.0
     positiony = yinitial
     vx = initialvelocity * math.cos(math.radians(initialangle))
     vy = initialvelocity * math.sin(math.radians(initialangle))
+    dragx = (1/2)* dragcoeff * area * air_density * (vx)**2
+    dragy = (1/2)* dragcoeff * area * air_density * (vy)**2
 
     # Lists for graph
     x_values = [positionx]
@@ -34,11 +35,17 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
     v_values = [initialvelocity]
     t_values = [time]
 
-       # Simulation
+       # Simulation and update values
     while positiony >= 0:
+        v_total = math.hypot(vx, vy)
+        #Calculate drag acceleration (F_drag / mass) opposing current velocity
+        drag_factor = (0.5 * dragcoeff * area * air_density * v_total) / mass
+        ax_drag = drag_factor * vx
+        ay_drag = drag_factor * vy
         positionx += vx * del_t
         positiony += vy * del_t
-        vy -= gravity * del_t
+        vy -= (gravity + ay_drag) * del_t
+        vx -= (ax_drag) * del_t
         time += del_t
 
         # Store points
@@ -52,7 +59,7 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
     velocityfinal = v_values[-1]
     timefinal = max(t_values)
 
-   # 1. Define these variables FIRST
+   #Define these variables FIRST
     v45 = initialvelocity * math.sin(math.radians(45))
     max_possible_x = (v45 / gravity) * (v45 + math.sqrt(v45**2 + 2 * gravity * yinitial))
     max_possible_y = yinitial + (initialvelocity**2) / (2 * gravity)
@@ -86,7 +93,7 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial):
     ani = FuncAnimation(fig, update, frames=len(x_values), interval=15, repeat=False)
     canvas.draw()
 
-    # DELETE plt.close(fig) — leaving it here kills the animation!
+    # DELETE plt.close(fig) — leaving it here will kill the animation
 
 
     # Return values back to inputs.py
