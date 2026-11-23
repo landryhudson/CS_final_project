@@ -80,9 +80,9 @@ root.columnconfigure(4, weight=1)
 #I want the frame to span all the columns if I add any so I made a variable that gets the toatl number of columns and rows. 
 total_cols = root.grid_size()[0]
 total_rows = root.grid_size()[1]
-graphframe = Frame(root, background="LightBlue2", borderwidth=4, height = height - 300, pady = 3)
+graphframe = Frame(root, borderwidth=4, height = height - 300, pady = 3)
 graphframe.grid(row=0, column=0, columnspan = total_cols, sticky="ew")
  
 
-#this will continuously check the code for updates and make sure that if buttons are pressed or nu,mbers are changed that the GUI is updated. 
+#this will continuously check the code for updates and make sure that if buttons are pressed or numbers are changed that the GUI is updated. 
 root.mainloop()
