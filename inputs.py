@@ -28,7 +28,8 @@ def play():
         mass = 1.0
         diameter = 0.1
 
-    max_height, finalrange, velocityfinal, timefinal = graph.draw_graph(graphframe, initialvelocity, initialangle, yinitial, air_density, mass, diameter)
+    max_height, finalrange, velocityfinal, timefinal = graph.draw_graph(graphframe, initialvelocity,
+            initialangle, yinitial, air_density, mass, diameter)
     
     # Update the output labels next to the inputs. 
     # Takes values from graph.py and outputs them to 2 decimal places. (once play button is pressed)

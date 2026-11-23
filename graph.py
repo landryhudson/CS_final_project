@@ -19,6 +19,8 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial, air_density,
     gravity = 9.8
     del_t = 0.02
     time = 0
+    x_max = 100
+    y_max = 50
 
     # Initial conditions
     acceleration = [0, gravity]
@@ -65,8 +67,8 @@ def draw_graph(graphframe, initialvelocity, initialangle, yinitial, air_density,
     max_possible_y = yinitial + (initialvelocity**2) / (2 * gravity)
     # Graph
     fig, ax = plt.subplots(figsize=(8, 4), dpi=100)
-    ax.set_xlim(0, max(max_possible_x * 1.1, 10))
-    ax.set_ylim(0, max(max_possible_y * 1.15, 10))
+    ax.set_xlim(0, x_max)
+    ax.set_ylim(0, y_max)
     ax.set_aspect("equal", adjustable="box")
     ax.set_title("Projectile Motion")
     ax.set_xlabel("Horizontal Distance (m)")
